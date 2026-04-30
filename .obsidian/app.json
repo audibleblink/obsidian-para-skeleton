@@ -1,0 +1,15 @@
+{
+  "livePreview": false,
+  "showLineNumber": true,
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "vimMode": true,
+  "promptDelete": false,
+  "attachmentFolderPath": "Notes/data",
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
+}
