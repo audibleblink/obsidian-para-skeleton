@@ -1,9 +1,9 @@
 {
-  "livePreview": false,
+  "livePreview": true,
   "showLineNumber": true,
   "alwaysUpdateLinks": true,
   "showUnsupportedFiles": true,
-  "vimMode": true,
+  "vimMode": false,
   "promptDelete": false,
   "attachmentFolderPath": "Notes/data",
   "pdfExportSettings": {
@@ -11,5 +11,7 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Notes"
 }

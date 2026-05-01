@@ -226,7 +226,10 @@
                 "insertAtEnd": false,
                 "considerSubsections": false,
                 "createIfNotFound": false,
-                "createIfNotFoundLocation": "top"
+                "createIfNotFoundLocation": "top",
+                "inline": false,
+                "replaceExisting": false,
+                "blankLineAfterMatchMode": "auto"
               },
               "prepend": false,
               "task": false,
@@ -242,7 +245,9 @@
                 "direction": "vertical",
                 "focus": true,
                 "mode": "default"
-              }
+              },
+              "captureToCanvasNodeId": "",
+              "activeFileWritePosition": "cursor"
             }
           },
           {
