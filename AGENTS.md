@@ -14,13 +14,37 @@ Operational guide for AI agents working inside this vault. Read [README.md](READ
 
 This machine has the `obsidian` CLI. Use it for vault operations — it respects link resolution, sync, templates, and the active file. Fall back to direct file I/O only when the CLI can't do what you need.
 
+Run `obsidian help` for the full command reference, or `obsidian help <command>` for details on a specific command.
+
+### Discovery & search
 ```shell
-obsidian help
-obsidian search query="..."
-obsidian read file=NoteName
-obsidian daily                       # open/create today's daily
+obsidian search query="<term>"              # full-text search, returns matching file paths
+obsidian search:context query="<term>"      # search with surrounding line context
+obsidian backlinks file=NoteName            # what links TO this note
+obsidian links file=NoteName               # what this note links OUT to
+obsidian unresolved                         # all broken wikilinks in the vault
+obsidian orphans                            # notes with no incoming links
+obsidian deadends                           # notes with no outgoing links
+```
+
+### Reading & writing
+```shell
+obsidian read file=NoteName                 # read note contents (resolves by wikilink name)
+obsidian property:set name=archived value=true file=NoteName
+obsidian property:read name=tags file=NoteName
+```
+
+### Daily notes
+```shell
+obsidian daily                              # open/create today's daily
 obsidian daily:append content="..."
-obsidian tasks daily
+obsidian tasks daily                        # list tasks in today's daily
+```
+
+### Graph hygiene (run after edits)
+```shell
+obsidian unresolved                         # verify no broken links introduced
+obsidian backlinks file=NoteName counts     # confirm new note is reachable
 ```
 
 ## Filename convention
@@ -122,6 +146,9 @@ Filename without `.md` on the left, human title on the right.
 - **Areas use the emoji alias:** `[[Engineering|📍 Engineering]]`.
 - **Projects use the briefcase alias:** `[[20260430-project-x|🗂️ Project X]]`.
 - **Tasks reference projects via inline field:** `- [ ] Do thing  [project:: [[20260430-project-x]]]`. The dashboard and project pages query this.
+- Don't be afraid to link inline and use vanity aliases to make the sentence flow.
+  - Ex: The methods behind [[20260508-12-factor-agents|12 Factor Agents]] are beneficial because...
+  - Prefer this over link indexes at the bottom of the page. Obsidian already does this with link/backlink interfaces.
 
 ## Capture flows (when to use what)
 
@@ -177,6 +204,35 @@ Use the [obsidian-tasks-plugin](https://publish.obsidian.md/tasks/) emoji format
 3. H1 self-wikilink uses the actual filename.
 4. No broken wikilinks introduced.
 5. If you created tasks, they're either inside a project (`[project::]`) or in a daily note's `## Inbox`.
+
+## Enrichment
+
+When creating a note from a rich source (video, article, talk), also create atomic notes for each distinct concept and link them bidirectionally. This makes ideas findable by concept, not just by source.
+
+### Finding related notes
+
+Don't rely on filenames alone — search by concept:
+
+```shell
+obsidian search query="<key term>"
+obsidian search query="<related concept>"
+```
+
+Read the first ~25 lines of candidate notes to confirm relevance before linking. A note about a related idea may live under an unrelated filename.
+
+### Atomic note standards
+
+- **One idea per note.** If you need "and" in the title, split it.
+- **Self-contained.** The note should make sense without the source.
+- **Tag:** `resource/reference`. No `source:` field unless the atomic note itself has a canonical URL.
+- **Link to the source note** from each atomic note
+- Each atomic note links to the source and to the 1–4 most conceptually related notes.
+
+#Maintenance
+
+- Only link to notes that exist. When in doubt, check with `obsidian search` before adding a wikilink.
+- The Vault may have existing related notes, find and link them
+- Use `obsidian {links,backlinks}` to surface notes 
 
 ## Quick reference
 
